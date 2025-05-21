@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-docker
+  namespace: howest-fastapi-ls # Replace with your namespace name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vue-docker # Ensures the deployment matches pods with this label
+  template:
+    metadata:
+      labels:
+        app: vue-docker # This label will be applied to each pod created by the deployment
+    spec:
+      containers:
+        - name: vue-container
+          image: spartanroyalty/docker-new-frontend:latest 
+          ports:
+            - containerPort: 5000
