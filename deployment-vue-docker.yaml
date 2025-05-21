@@ -27,3 +27,6 @@ spec:
           image: spartanroyalty/docker-new-frontend:latest 
           ports:
             - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: mariadb-fastapi-secret
