@@ -7,12 +7,21 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vue-docker # Ensures the deployment matches pods with this label
+      app: vue-docker
   template:
     metadata:
       labels:
-        app: vue-docker # This label will be applied to each pod created by the deployment
+        app: vue-docker
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - k3d-k3s-default-agent-0
       containers:
         - name: vue-container
           image: spartanroyalty/docker-new-frontend:latest 
