@@ -1,0 +1,21 @@
+services:
+  mariadb:
+    image: mariadb:11.6.2 # latest in 2025
+    env_file:
+     - .env # We'll have to add all the environment variables to the database
+    ports:
+      - 3306:3306 # Should this port be open?
+    volumes: # Persistent volume is for later!
+     - database:/var/lib/mysql 
+
+  api:
+    image: nathansegers/01-fastapi-2022
+    ports:
+      - 8000:8000
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+
+volumes:
+  database:
